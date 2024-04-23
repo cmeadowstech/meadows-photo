@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+import logo from "./src/pages/cmeadows-logo.png";
+
+const albums = await getCollection("albums");
+---
+
+<div class="navbar bg-base-100 p-4">
+    <div class="flex-1">
+        <a class="btn btn-ghost text-xl h-fit" href="/"
+            ><Image
+                src={logo}
+                class="h-12 w-auto"
+                alt="Cody Meadows Photography logo"
+            />
+        </a>
+        </div>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal px-1 text-lg">
+                <li><a href="/about/">About</a></li>
+                <li class="dropdown dropdown-hover dropdown-end">
+                    <div tabindex="0" role="button" class="">Albums</div>
+                        <ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                            {
+                                albums.map((item) => (
+                                    <li>
+                                        <a
+                                            href={`/gallery/${item.id}`}
+                                            class="group transition-all mb-4 block"
+                                        >
+                                            {item.data.title}
+                                        </a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
