@@ -14,7 +14,5 @@ export async function getAlbumImages(albumId: string) {
       Object.values(images).map((image) => image().then((mod) => mod.default))
     );
   
-    // 4. Shuffle images in random order
-    resolvedImages.sort(() => Math.random() - 0.5);
     return resolvedImages;
   }

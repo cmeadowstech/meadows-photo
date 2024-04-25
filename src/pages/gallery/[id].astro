@@ -3,7 +3,7 @@ import { getAlbumImages } from "../../utils/albums";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 
-import Navigation from "/src/components/Navigation.astro";
+import BaseLayout from "/src/layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
   const albums = await getCollection("albums");
@@ -26,8 +26,7 @@ const { album } = Astro.props;
 const images = await getAlbumImages(album.id);
 ---
 
-<Navigation />
-
+<BaseLayout title="Home page">
 <div class="text-center my-16 mb-32">
   <h1 class="text-5xl font-bold">
     {album.data.title}
@@ -37,7 +36,7 @@ const images = await getAlbumImages(album.id);
   </p>
 
   <div
-    class="mx-auto container my-8 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4"
+    class="mx-auto container my-8 columns-1 md:columns-2 xl:columns-3"
   >
     {
       images.map((image) => (
@@ -46,7 +45,7 @@ const images = await getAlbumImages(album.id);
           alt={`Image from ${album.data.title} album`}
           format="avif"
           quality={50}
-          class="rounded mb-4 border border-transparent hover:border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg"
+          class="mb-4 border-4 border-white transition-all duration-300 ease-in-out hover:shadow-lg"
           loading="lazy"
           width="512"
         />
@@ -55,3 +54,4 @@ const images = await getAlbumImages(album.id);
   </div>
 
 </div>
+</BaseLayout>
